@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Flipper : MonoBehaviour
+{
+    Game game;
+    Animator animator;
+
+    public enum flipper { Left, Right };
+    KeyCode keyFlipLeft = KeyCode.A;
+    KeyCode keyFlipRight = KeyCode.D;
+    string animFlipLeft = "Left Flipper";
+    string animFlipRight = "Right Flipper";
+
+    [SerializeField] flipper side;
+    KeyCode keyFlip;
+    string animFlip;
+
+    void Awake()
+    {
+        game = GameObject.FindWithTag("GameManager").GetComponent<Game>();
+        animator = GetComponent<Animator>();
+    }
+
+    void Start()
+    {
+        if (gameObject.name.Contains("Left"))
+        {
+            side = flipper.Left;
+            keyFlip = keyFlipLeft;
+            animFlip = animFlipLeft;
+        }
+        if (gameObject.name.Contains("Right"))
+        {
+            side = flipper.Right;
+            keyFlip = keyFlipRight;
+            animFlip = animFlipRight;
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(keyFlip))
+            animator.Play(animFlip, 0, 0);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+}
