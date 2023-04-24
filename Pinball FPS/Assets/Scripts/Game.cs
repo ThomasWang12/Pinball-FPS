@@ -5,7 +5,11 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public GameObject player;
-    public Audio audio;
+    [HideInInspector] public Audio audio;
+
+    Vector3 startPos;
+    Quaternion startRot;
+    public bool started = false;
 
     void Awake()
     {
@@ -15,12 +19,24 @@ public class Game : MonoBehaviour
 
     void Start()
     {
-        
+        startPos = player.transform.position;
+        startRot = player.transform.rotation;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            started = true;
             player.GetComponent<Rigidbody>().isKinematic = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            started = false;
+            player.transform.position = startPos;
+            player.transform.rotation = startRot;
+            player.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 }
