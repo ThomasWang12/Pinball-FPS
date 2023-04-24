@@ -20,18 +20,18 @@ public class Flipper : MonoBehaviour
     void Awake()
     {
         game = GameObject.FindWithTag("GameManager").GetComponent<Game>();
-        animator = GetComponent<Animator>();
+        animator = transform.parent.GetComponent<Animator>();
     }
 
     void Start()
     {
-        if (gameObject.name.Contains("Left"))
+        if (transform.parent.name.Contains("Left"))
         {
             side = flipper.Left;
             keyFlip = keyFlipLeft;
             animFlip = animFlipLeft;
         }
-        if (gameObject.name.Contains("Right"))
+        if (transform.parent.name.Contains("Right"))
         {
             side = flipper.Right;
             keyFlip = keyFlipRight;
@@ -42,11 +42,18 @@ public class Flipper : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(keyFlip))
-            animator.Play(animFlip, 0, 0);
+        {
+            animator.Play(animFlip, 0, 0.0f);
+            game.audio.Play(Sound.name.Flipper);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.tag == "Player")
+        {
+            game.audio.Play(Sound.name.FlipperHit);
+            game.player.GetComponent<Rigidbody>().AddForce(Vector3.up * 5);
+        }
     }
 }
