@@ -9,12 +9,14 @@ public class UI : MonoBehaviour
 {
     Game game;
 
+    [SerializeField] TMP_Text pressStartTMP;
+    public RawImage crosshair;
+    [SerializeField] TMP_Text healthTMP;
+    [SerializeField] TMP_Text ammoTMP;
+
     [SerializeField] PostProcessVolume postProcessVolume;
     Vignette vignette;
     ChromaticAberration chromaticAberration;
-
-    [SerializeField] TMP_Text healthTMP;
-    [SerializeField] RawImage crosshair;
 
     Vector3 originMousePos;
     bool recordMousePos = false;
@@ -35,9 +37,9 @@ public class UI : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Input.mousePosition);
+        pressStartTMP.enabled = !game.started;
 
-        if (game.slowMo)
+        if (game.slowMotion)
         {
             if (!recordMousePos)
             {
@@ -58,6 +60,10 @@ public class UI : MonoBehaviour
         }
 
         healthTMP.text = "Health: " + game.health;
+
+        if (game.ammo > 0)
+            ammoTMP.text = game.ammo + "<size=60> / 6</size>";
+        else ammoTMP.text = "<size=40>REFILL\nAMMO</size>";
     }
 
     public void SlowMoEffect(bool state)

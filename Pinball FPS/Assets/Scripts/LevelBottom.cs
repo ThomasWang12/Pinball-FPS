@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class LevelBottom : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Game game;
+
+    void Awake()
     {
-        
+        game = GameObject.FindWithTag("GameManager").GetComponent<Game>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.tag == "Player")
+        {
+            game.DeductHealth();
+            game.sound.Play(Sound.name.LoseHealth);
+            game.PlayerRespawn();
+        }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            game.DeductHealth();
+            game.sound.Play(Sound.name.EnemyScore);
+            collision.gameObject.GetComponent<Enemy>().Reset();
+        }
     }
 }
