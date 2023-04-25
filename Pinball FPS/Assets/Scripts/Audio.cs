@@ -6,7 +6,7 @@ public static class Sound
 {
     public enum name
     {
-        Flipper, FlipperHit
+        Flipper, FlipperHit, SlowMoEnter, SlowMoExit, Shoot, Win, Lose
     }
 
     public static string AudioEnumToName(name name)
@@ -15,6 +15,11 @@ public static class Sound
         {
             name.Flipper => "Flipper",
             name.FlipperHit => "Flipper Hit",
+            name.SlowMoEnter => "Slow Mo Enter",
+            name.SlowMoExit => "Slow Mo Exit",
+            name.Shoot => "Shoot",
+            name.Win => "Win",
+            name.Lose => "Lose",
             _ => ""
         };
     }

@@ -12,10 +12,8 @@ public class Flipper : MonoBehaviour
     public enum flipper { Left, Right };
     KeyCode keyFlipLeft = KeyCode.A;
     KeyCode keyFlipRight = KeyCode.D;
-    //string animFlipLeft = "Left Flipper";
-    //string animFlipRight = "Right Flipper";
-    Vector3 targetRotLeft = new Vector3(0, 0, -60);
-    Vector3 targetRotRight = new Vector3(0, 0, 60);
+    Vector3 targetRotLeft = new Vector3(-70, 0, -60);
+    Vector3 targetRotRight = new Vector3(-70, 0, 60);
 
     [SerializeField] flipper side;
     KeyCode keyFlip;
@@ -42,48 +40,25 @@ public class Flipper : MonoBehaviour
         {
             side = flipper.Left;
             keyFlip = keyFlipLeft;
-            //animFlip = animFlipLeft;
             targetRot = targetRotLeft;
         }
         if (side == flipper.Right)
         {
             side = flipper.Right;
             keyFlip = keyFlipRight;
-            //animFlip = animFlipRight;
             targetRot = targetRotRight;
         }
     }
 
     void Update()
     {
-        /*if (Input.GetKeyDown(keyFlip))
-        {
-            //animator.enabled = true;
-            animator.Play(animFlip, 0, 0.0f);
-        }*/
+        // ...
     }
 
     void FixedUpdate()
     {
-        /*if (Input.GetKey(keyFlip))
-        {
-            //rb.MoveRotation(Quaternion.Euler(targetRot));
-            rb.MoveRotation(rb.rotation.Diff(Quaternion.Euler(targetRot)));
-            //Debug.Log(rb.rotation.eulerAngles);
-
-            //Vector3 m_EulerAngleVelocity = new Vector3(0, 100, 0);
-            //Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
-            //rb.MoveRotation(rb.rotation * deltaRotation);
-
-            game.sound.Play(Sound.name.Flipper);
-        }
-        else
-        {
-            rb.MoveRotation(rb.rotation.Diff(initialRot));
-        }*/
-
         float t = Mathf.Clamp01(rotProgress);
-            //Easing.Type.SineEaseOut(Mathf.Clamp01(rotProgress), 0, 1, rotDuration);
+        //Easing.Type.SineEaseOut(Mathf.Clamp01(rotProgress), 0, 1, rotDuration);
         Quaternion rot = Quaternion.Lerp(initialRot, Quaternion.Euler(targetRot), t);
         rb.MoveRotation(rot);
 
@@ -96,10 +71,7 @@ public class Flipper : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            //animator.Play(animFlip + " Initial", 0, 0.0f);
-            //animator.enabled = false;
             game.sound.Play(Sound.name.FlipperHit);
-            //game.player.GetComponent<Rigidbody>().AddForce(Vector3.up * 5);
         }
     }
 }

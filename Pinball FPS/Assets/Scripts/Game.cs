@@ -4,18 +4,31 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public GameObject player;
-    [SerializeField] GameObject lookTarget;
+    [HideInInspector] public UI ui;
     [HideInInspector] public Audio sound;
+
+    public GameObject player;
+    PlayerCamera playerCam;
+    [SerializeField] GameObject lookTarget;
 
     Vector3 startPos;
     Quaternion startRot;
+
+    [Space(10)]
+
     public bool started = false;
+    public bool slowMo = false;
+    public int health = 10;
+
+    /* Tunables */
+    float slowMoTimeRate = 0.2f;
 
     void Awake()
     {
-        player = GameObject.FindWithTag("Player");
+        ui = GameObject.Find("UI").GetComponent<UI>();
         sound = GameObject.Find("Sounds").GetComponent<Audio>();
+        player = GameObject.FindWithTag("Player");
+        playerCam = Camera.main.GetComponent<PlayerCamera>();
     }
 
     void Start()
@@ -29,24 +42,35 @@ public class Game : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             started = true;
+            Cursor.lockState = CursorLockMode.Locked;
             player.GetComponent<Rigidbody>().isKinematic = false;
         }
 
-        //Camera.main.transform.rotation = Quaternion.Euler(Camera.main.transform.rotation.eulerAngles.x, 0, Camera.main.transform.rotation.eulerAngles.z);
-        //Camera.main.transform.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, Camera.main.transform.rotation.eulerAngles.z);
-
-
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            Time.timeScale = 0.2f;
+            sound.Play(Sound.name.Shoot);
         }
-        else Time.timeScale = 1;
 
-        if (Input.GetMouseButton(1))
+        // Slow Mo: ON
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            Time.timeScale = 0.2f;
+            slowMo = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = false;
+            Time.timeScale = slowMoTimeRate;
+            ui.SlowMoEffect(true);
+            sound.Play(Sound.name.SlowMoEnter);
         }
-        else Time.timeScale = 1;
+        // Slow Mo: OFF
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            slowMo = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = true;
+            Time.timeScale = 1;
+            ui.SlowMoEffect(false);
+            sound.Play(Sound.name.SlowMoExit);
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
