@@ -5,7 +5,8 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public GameObject player;
-    [HideInInspector] public Audio audio;
+    [SerializeField] GameObject lookTarget;
+    [HideInInspector] public Audio sound;
 
     Vector3 startPos;
     Quaternion startRot;
@@ -14,7 +15,7 @@ public class Game : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
-        audio = GameObject.Find("Sounds").GetComponent<Audio>();
+        sound = GameObject.Find("Sounds").GetComponent<Audio>();
     }
 
     void Start()
@@ -30,6 +31,9 @@ public class Game : MonoBehaviour
             started = true;
             player.GetComponent<Rigidbody>().isKinematic = false;
         }
+
+        //Vector3 look = new Vector3(cam.transform.position.x, lookTarget.transform.position.y, lookTarget.transform.position.z);
+        //cam.transform.LookAt(look);
 
         if (Input.GetKeyDown(KeyCode.R))
         {
