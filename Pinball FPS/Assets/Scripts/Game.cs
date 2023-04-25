@@ -32,8 +32,21 @@ public class Game : MonoBehaviour
             player.GetComponent<Rigidbody>().isKinematic = false;
         }
 
-        //Vector3 look = new Vector3(cam.transform.position.x, lookTarget.transform.position.y, lookTarget.transform.position.z);
-        //cam.transform.LookAt(look);
+        //Camera.main.transform.rotation = Quaternion.Euler(Camera.main.transform.rotation.eulerAngles.x, 0, Camera.main.transform.rotation.eulerAngles.z);
+        //Camera.main.transform.rotation = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, Camera.main.transform.rotation.eulerAngles.z);
+
+
+        if (Input.GetMouseButton(0))
+        {
+            Time.timeScale = 0.2f;
+        }
+        else Time.timeScale = 1;
+
+        if (Input.GetMouseButton(1))
+        {
+            Time.timeScale = 0.2f;
+        }
+        else Time.timeScale = 1;
 
         if (Input.GetKeyDown(KeyCode.R))
         {

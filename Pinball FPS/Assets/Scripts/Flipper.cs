@@ -25,7 +25,7 @@ public class Flipper : MonoBehaviour
     float rotProgress;
 
     /* Tunables */
-    float rotDuration = 1.0f;
+    //float rotDuration = 1.0f;
 
     void Awake()
     {
