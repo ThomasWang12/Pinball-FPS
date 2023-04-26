@@ -54,6 +54,7 @@ public class Game : MonoBehaviour
         {
             started = true;
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             player.GetComponent<Rigidbody>().isKinematic = false;
         }
 
@@ -72,30 +73,35 @@ public class Game : MonoBehaviour
             else sound.Play(Sound.name.NoAmmo);
         }
 
+        // Slow Motion
+        if (Input.GetKeyDown(KeyCode.LeftShift)) SlowMotion(true);
+        if (Input.GetKeyUp(KeyCode.LeftShift)) SlowMotion(false);
+
+        // Restart game
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void SlowMotion(bool toggle)
+    {
         // Slow Motion: ON
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (toggle)
         {
             slowMotion = true;
             Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = false;
             Time.timeScale = slowMoTimeRate;
             ui.SlowMoEffect(true);
             sound.Play(Sound.name.SlowMoEnter);
         }
         // Slow Motion: OFF
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        else
         {
             slowMotion = false;
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = true;
             Time.timeScale = 1;
             ui.SlowMoEffect(false);
             sound.Play(Sound.name.SlowMoExit);
         }
-
-        // Restart game
-        if (Input.GetKeyDown(KeyCode.R))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void AmmoRefill()
@@ -114,9 +120,11 @@ public class Game : MonoBehaviour
     public void PlayerRespawn()
     {
         started = false;
+        Cursor.visible = true;
         player.transform.position = startPos;
         player.transform.rotation = startRot;
         player.GetComponent<Rigidbody>().isKinematic = true;
         ammo = ammoMax;
+        SlowMotion(false);
     }
 }
