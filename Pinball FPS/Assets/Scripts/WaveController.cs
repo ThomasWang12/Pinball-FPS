@@ -4,17 +4,28 @@ using UnityEngine;
 
 public class WaveController : MonoBehaviour
 {
+    Game game;
+
     public static WaveController WC;
 
     public List<Wave> Waves;
 
     public Wave CurWave = null;
 
+    public int totalWave;
+    public int currentWave = 1;
+
     public bool LevelCompleted = false;
 
-    // Start is called before the first frame update
+    void Awake()
+    {
+        game = GameObject.FindWithTag("GameManager").GetComponent<Game>();
+    }
+
     void Start()
     {
+        totalWave = Waves.Count;
+
         if (WC == null)
         {
             WC = this;
@@ -23,28 +34,24 @@ public class WaveController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-            
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (CurWave != null && CurWave.WaveCompleted)
         {
+            game.ui.WaveComplete(currentWave);
+            game.sound.Play(Sound.name.Win);
+            currentWave++;
+
             Destroy(Waves[0].gameObject);
             CurWave = null;
             Waves.RemoveAt(0);
         }
-        if (CurWave == null)//TODO:check is start or not, if start then NextWave
-        {
-            NextWave();
-        }
         if (Waves.Count == 0)
         {
-            LevelCompleted = true;//TODO: End this level
+            LevelCompleted = true;
         }
-
     }
 
     public void NextWave()

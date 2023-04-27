@@ -47,6 +47,12 @@ public class Flipper : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(keyFlip)) game.sound.Play(Sound.name.FlipperEnter);
+        if (Input.GetKeyUp(keyFlip)) game.sound.Play(Sound.name.FlipperExit);
+    }
+
     void FixedUpdate()
     {
         if (Input.GetKey(keyFlip))

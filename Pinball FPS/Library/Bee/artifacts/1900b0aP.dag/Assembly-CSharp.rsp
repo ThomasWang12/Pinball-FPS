@@ -301,6 +301,7 @@
 -r:"D:/文档/Unity Editor/2021.3.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/Variations/mono/Managed/UnityEngine.WindModule.dll"
 -r:"D:/文档/Unity Editor/2021.3.10f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/Variations/mono/Managed/UnityEngine.XRModule.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.Postprocessing.Runtime.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aP.dag/Unity.ProBuilder.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.Services.Core.Analytics.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.Services.Core.Environments.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aP.dag/Unity.Services.Core.ref.dll"
@@ -312,12 +313,16 @@
 -r:"Library/Bee/artifacts/1900b0aP.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/Audio.cs"
 "Assets/Scripts/Enemy.cs"
+"Assets/Scripts/EscQuit.cs"
 "Assets/Scripts/Flipper.cs"
 "Assets/Scripts/Game.cs"
 "Assets/Scripts/LevelBottom.cs"
+"Assets/Scripts/LoadScene.cs"
 "Assets/Scripts/Methods.cs"
 "Assets/Scripts/PlayerCamera.cs"
 "Assets/Scripts/UI.cs"
+"Assets/Scripts/Wave.cs"
+"Assets/Scripts/WaveController.cs"
 -langversion:9.0
 
 /deterministic
