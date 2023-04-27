@@ -101,6 +101,7 @@ public class Game : MonoBehaviour
             started = false;
             playerRb.isKinematic = true;
             ui.LevelComplete();
+            SlowMotion(false);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }
@@ -112,6 +113,7 @@ public class Game : MonoBehaviour
             started = false;
             playerRb.isKinematic = true;
             ui.GameOver();
+            SlowMotion(false);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }
